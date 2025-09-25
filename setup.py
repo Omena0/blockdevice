@@ -14,7 +14,7 @@ blockdevice_module = Extension(
         'include'
     ],
     language='c++',
-    extra_compile_args=['-std=c++14'],
+    extra_compile_args=['-std=c++14', '-Wno-attributes'],
 )
 
 setup(
@@ -28,18 +28,14 @@ setup(
     license_files=['COPYING.md'],
     url='https://github.com/Omena0/blockdevice',
     ext_modules=[blockdevice_module],
-    packages=['blockdevice'],
+    packages=['blockdevice', 'scripts'],
     python_requires='>=3.13',
     install_requires=[
-        'pybind11>=2.6.0',
-    ],
-    setup_requires=[
         'pybind11>=2.6.0',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.13',
         'Topic :: System :: Filesystems',

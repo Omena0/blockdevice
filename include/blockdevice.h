@@ -51,12 +51,12 @@ public:
 
 private:
     std::string mountpoint_;
-    std::string name_;
     bool dolphin_integration_;
+    std::string name_;
+    bool mounted_;
     py::object read_callback_;
     py::object write_callback_;
     py::object list_callback_;
     py::object delete_callback_;
     py::object fuse_instance_;
-    bool mounted_;
 };
