@@ -89,8 +89,7 @@ blockdevice_module = Extension(
     ],
     include_dirs=[
         pybind11.get_include(),
-        'include',
-        '.'
+        os.path.abspath('include')
     ],
     language='c++',
     extra_compile_args=['-std=c++14', '-Wno-attributes'],
