@@ -76,6 +76,7 @@ class DiskObject(Object):
     def __init__(self, path, default_value=None):
         self.path = path
         super().__init__(default_value)
+        self.load()
 
     def load(self):
         """Load data from disk"""
