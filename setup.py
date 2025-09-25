@@ -14,7 +14,7 @@ blockdevice_module = Extension(
         'include'
     ],
     language='c++',
-    cxx_std=14,
+    extra_compile_args=['-std=c++14'],
 )
 
 setup(
