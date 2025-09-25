@@ -110,6 +110,8 @@ setup(
     python_requires='>=3.6',
     install_requires=[
         'pybind11>=2.6.0',
+        'fusepy>=3.0.1',
+        'zstd>=1.5.0',
     ],
     classifiers=[
         'Development Status :: 3 - Alpha',
