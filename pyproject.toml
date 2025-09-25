@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "pybind11>=2.6.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "blockdevice"
+version = "0.1.0"
+description = "A simple C++ Python library for block device operations"
+readme = "README.md"
+license-files = ["COPYING.md"]
+authors = [
+    {name = "Omena0", email = "omena0mc@gmail.com"}
+]
+requires-python = ">=3.13"
+dependencies = [
+    "pybind11>=2.6.0"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: System :: Filesystems",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "https://github.com/Omena0/blockdevice"
+
+[tool.setuptools]
+packages = ["blockdevice"]
+include-package-data = true
