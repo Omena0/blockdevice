@@ -235,6 +235,9 @@ jobs:
       - build
     if: needs.build.result == 'success' && needs.ensure-tag.outputs.version_exists == 'false'
 
+    environment:
+      name: pypi
+
     permissions:
       id-token: write
 
