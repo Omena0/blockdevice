@@ -1,4 +1,4 @@
-#include "../include/blockdevice.h"
+#include "include/blockdevice.h"
 #include <stdexcept>
 
 BlockDevice::BlockDevice(const std::string& mountpoint, bool dolphin, const std::string& name) 
