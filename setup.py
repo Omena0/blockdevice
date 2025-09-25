@@ -10,7 +10,7 @@ blockdevice_module = Extension(
         'src/blockdevice_class.cpp'
     ],
     include_dirs=[
-        pybind11.get_cmake_dir() + '/../../../include',
+        pybind11.get_include(),
         'include'
     ],
     language='c++',
