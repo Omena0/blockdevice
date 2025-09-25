@@ -220,7 +220,7 @@ jobs:
           # Clean any previous build artifacts so we don't upload stale packages
           rm -rf dist || true
           python -m pip install --upgrade build
-          python -m build
+          python -m build --no-isolation
 
       - name: Upload distributions
         uses: actions/upload-artifact@v4
