@@ -1,8 +1,10 @@
-import pytest
-import tempfile
 import os
-import blockdevice.utils as utils
-from unittest.mock import Mock, MagicMock
+import tempfile
+from unittest.mock import MagicMock
+
+import pytest
+
+from blockdevice import utils
 
 
 class TestObject:

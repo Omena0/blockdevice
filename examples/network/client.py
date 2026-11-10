@@ -1,10 +1,10 @@
-import sys
 import os
+import sys
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../..'))
 
-from blockdevice.utils import NetworkObject
 from blockdevice import BlockDevice
-
+from blockdevice.utils import NetworkObject
 
 dev = BlockDevice(sys.argv[1], dolphin=True)
 
@@ -174,7 +174,7 @@ def write_file(path, data):
 
         return True
 
-    except Exception as e:
+    except Exception:
         import traceback
         traceback.print_exc()
         # Return True even on some errors to prevent FUSE from failing

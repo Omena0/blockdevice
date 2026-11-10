@@ -1,6 +1,7 @@
-from blockdevice.utils import CompressedDiskObject
-from blockdevice import BlockDevice
 import os
+
+from blockdevice import BlockDevice
+from blockdevice.utils import CompressedDiskObject
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 

@@ -1,12 +1,13 @@
-from abc import ABC, abstractmethod
-import threading
+import base64
+import os
 import pickle
 import socket
-import base64
-import zstd
-import os
+import threading
+from abc import ABC, abstractmethod
 
-__all__ = ["Object", "DiskObject", "CompressedDiskObject", "NetworkObject"]
+import zstd
+
+__all__ = ["CompressedDiskObject", "DiskObject", "NetworkObject", "Object"]
 
 class Object(ABC):
     """Abstract base class for objects that can save and load their state."""
@@ -17,12 +18,10 @@ class Object(ABC):
     @abstractmethod
     def load(self):
         """Load data from storage"""
-        pass
 
     @abstractmethod
     def save(self):
         """Save data to storage"""
-        pass
 
     def __getitem__(self, key):
         return self._data[key]
@@ -103,7 +102,7 @@ class DiskObject(Object):
         return pickle.loads(data)
 
     def __repr__(self):
-        return f"{type(self).__name__}(path='{self.path}', data={repr(self._data)})"
+        return f"{type(self).__name__}(path='{self.path}', data={self._data!r})"
 
 class CompressedDiskObject(DiskObject):
     """
@@ -293,7 +292,6 @@ class NetworkObject(Object):
     
     def load(self):
         """No-op for network objects"""
-        pass
     
     def save(self):
         """Save by sending to server or broadcasting if server"""
