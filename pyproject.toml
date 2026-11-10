@@ -1,3 +1,41 @@
 [build-system]
 requires = ["setuptools>=61.0", "wheel", "pybind11>=2.6.0"]
 build-backend = "setuptools.build_meta"
+
+[project]
+name = "blockdevice"
+version = "0.1.0"
+description = "A simple C++ Python library for block device operations"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {file = "LICENSE.md"}
+authors = [{name = "Omena0", email = "omena0mc@gmail.com"}]
+keywords = ["block-device", "fuse", "filesystem", "storage"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: System :: Filesystems",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+]
+
+[tool.setuptools.packages.find]
+include = ["blockdevice", "blockdevice.utils"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+pythonpath = ["."]
+addopts = ["--import-mode=importlib"]

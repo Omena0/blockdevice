@@ -103,7 +103,7 @@ setup(
     description='A simple C++ Python library for block device operations',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
-    license_files=['COPYING.md'],
+    license_files=['LICENSE.md'],
     url='https://github.com/Omena0/blockdevice',
     ext_modules=[blockdevice_module],
     packages=find_packages(),
