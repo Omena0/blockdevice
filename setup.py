@@ -1,4 +1,4 @@
-from setuptools import setup, Extension
+from setuptools import setup, Extension, find_packages
 import pybind11
 import os
 import subprocess
@@ -106,7 +106,7 @@ setup(
     license_files=['COPYING.md'],
     url='https://github.com/Omena0/blockdevice',
     ext_modules=[blockdevice_module],
-    packages=['blockdevice'],
+    packages=find_packages(),
     python_requires='>=3.6',
     install_requires=[
         'pybind11>=2.6.0',

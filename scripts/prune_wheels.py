@@ -11,9 +11,9 @@ import sys
 
 
 def main():
-    ver = os.environ.get('SELECTED_VER') or os.environ.get('UI_ENGINE_VERSION')
+    ver = os.environ.get('SELECTED_VER') or os.environ.get('BLOCKDEVICE_VERSION')
     if not ver:
-        print('ERROR: SELECTED_VER or UI_ENGINE_VERSION must be set', file=sys.stderr)
+        print('ERROR: SELECTED_VER or BLOCKDEVICE_VERSION must be set', file=sys.stderr)
         sys.exit(2)
 
     print('Pruning wheels to only keep version:', ver)

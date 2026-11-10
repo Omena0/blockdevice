@@ -6,6 +6,8 @@ import base64
 import zstd
 import os
 
+__all__ = ["Object", "DiskObject", "CompressedDiskObject", "NetworkObject"]
+
 class Object(ABC):
     """Abstract base class for objects that can save and load their state."""
     

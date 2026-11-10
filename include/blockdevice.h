@@ -12,36 +12,36 @@ namespace py = pybind11;
 class BlockDevice {
 public:
     // Constructor with additional parameters
-    explicit BlockDevice(const std::string& mountpoint, 
-                        bool dolphin = false, 
+    explicit BlockDevice(const std::string& mountpoint,
+                        bool dolphin = false,
                         const std::string& name = "");
-    
+
     // Destructor
     ~BlockDevice() = default;
-    
+
     // Getters
     const std::string& get_mountpoint() const { return mountpoint_; }
     const std::string& get_name() const { return name_; }
     bool get_dolphin_integration() const { return dolphin_integration_; }
-    
+
     // Decorator methods that return the function (for chaining)
     py::object read_decorator(py::object func);
     py::object write_decorator(py::object func);
     py::object list_decorator(py::object func);
     py::object delete_decorator(py::object func);
-    
+
     // Methods to set callbacks directly
     void set_read_callback(py::object func);
     void set_write_callback(py::object func);
     void set_list_callback(py::object func);
     void set_delete_callback(py::object func);
-    
+
     // Methods to call the registered callbacks
     py::object call_read(const std::string& path);
     bool call_write(const std::string& path, const py::object& data);
     std::vector<std::string> call_list(const std::string& path);
     bool call_delete(const std::string& path);
-    
+
     // FUSE filesystem methods
     void mount();
     void unmount();

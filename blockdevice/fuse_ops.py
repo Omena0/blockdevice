@@ -19,21 +19,6 @@ def _debug_print(*args, **kwargs):
         # Silently fail if debug flag is not available
         pass
 
-import threading
-from typing import Any, Dict, List, Optional, Union
-from fuse import FuseOSError, Operations
-
-# Import debug function from parent module
-def _debug__debug_print(*args, **kwargs):
-    """Debug print that respects the module's debug flag"""
-    try:
-        import blockdevice
-        if blockdevice.debug:
-            _debug_print(*args, **kwargs)
-    except (ImportError, AttributeError):
-        # Fallback if debug flag is not available
-        pass
-
 
 class BlockDeviceFUSE(Operations):
     """
@@ -54,7 +39,7 @@ class BlockDeviceFUSE(Operations):
 
     def getattr(self, path: str, fh: Optional[int] = None) -> Dict[str, Any]:
         """Get file attributes"""
-        _debug__debug_print(f"FUSE getattr: {path}")
+        _debug_print(f"FUSE getattr: {path}")
 
         try:
             # If it's the root, always return directory attributes

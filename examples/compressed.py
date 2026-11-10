@@ -2,9 +2,11 @@ from blockdevice.utils import CompressedDiskObject
 from blockdevice import BlockDevice
 import os
 
-dev = BlockDevice("/home/omena0/Github/blockdevice/mnt", dolphin=True)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-store_path = '/home/omena0/Github/blockdevice/fs.bin'
+dev = BlockDevice(os.path.join(BASE_DIR, "mnt"), dolphin=True)
+
+store_path = os.path.join(BASE_DIR, "fs.bin")
 
 fs = CompressedDiskObject(store_path, {'/': {"type": "dir", "contents": []}}, compression_level=22)
 
@@ -15,7 +17,7 @@ def ensure_parent_dirs(file_path):
     if parent == "":
         parent = "/"
     elif parent != "/":
-        parent = parent + "/"
+        parent = f"{parent}/"
 
     # If parent doesn't exist, create it recursively
     if parent not in fs:
@@ -24,7 +26,7 @@ def ensure_parent_dirs(file_path):
         if grandparent == "":
             grandparent = "/"
         elif grandparent != "/":
-            grandparent = grandparent + "/"
+            grandparent = f"{grandparent}/"
 
         # Recursively ensure grandparents exist
         if grandparent != parent:
@@ -48,7 +50,7 @@ def delete(target_path):
         base_path = target_path.rstrip('/')
     else:
         # Check if it exists as a directory
-        dir_path = target_path + '/'
+        dir_path = f'{target_path}/'
         base_path = target_path
 
         # If it exists as a file, handle it as such
@@ -61,7 +63,7 @@ def delete(target_path):
             if parent == "":
                 parent = "/"
             elif parent != "/":
-                parent = parent + "/"
+                parent = f"{parent}/"
 
             filename = os.path.basename(target_path)
 
@@ -94,9 +96,9 @@ def delete(target_path):
         if parent == "":
             parent = "/"
         elif parent != "/":
-            parent = parent + "/"
+            parent = f"{parent}/"
 
-        dirname = os.path.basename(base_path) + '/'
+        dirname = f'{os.path.basename(base_path)}/'
 
         if parent in fs and fs[parent]["type"] == "dir" and dirname in fs[parent]["contents"]:
             fs[parent]["contents"].remove(dirname)
@@ -109,8 +111,7 @@ def delete(target_path):
 @dev.read
 def read_file(path):
     if path in fs and fs[path]["type"] == "file":
-        content = fs[path]["content"]
-        return content
+        return fs[path]["content"]
     else:
         raise FileNotFoundError(f"No such file: {path}")
 
@@ -119,7 +120,7 @@ def write_file(path, data):
     """Callback for writing files and creating directories"""
     # It's a directory
     if path.endswith('/'):
-        if not path in fs:
+        if path not in fs:
             fs[path] = {"type": "dir", "contents": []}
 
         # Add to parent directory listing
@@ -127,7 +128,7 @@ def write_file(path, data):
         if parent == "":
             parent = "/"
         elif parent != "/":
-            parent = parent + "/"  # Only add trailing slash if it's not root
+            parent = f"{parent}/"
 
         dirname = os.path.basename(path.rstrip('/')) + '/'
 
@@ -137,9 +138,6 @@ def write_file(path, data):
 
         if fs[parent]["type"] == "dir" and dirname not in fs[parent]["contents"]:
             fs[parent]["contents"].append(dirname)
-        return True
-
-    # It's a file
     else:
         # Ensure parent directories exist
         ensure_parent_dirs(path)
@@ -152,7 +150,7 @@ def write_file(path, data):
         if parent == "":
             parent = "/"
         elif parent != "/":
-            parent = parent + "/"  # Add trailing slash for directory lookup
+            parent = f"{parent}/"
 
         filename = os.path.basename(path)
 
@@ -164,7 +162,8 @@ def write_file(path, data):
             if filename not in fs[parent]["contents"]:
                 fs[parent]["contents"].append(filename)
 
-        return True
+
+    return True
 
 @dev.list
 def list_directory(path):
@@ -172,7 +171,7 @@ def list_directory(path):
     # Try the path as-is first, then try with trailing slash
     target_path = path
     if path != "/" and not path.endswith('/'):
-        target_path = path + "/"
+        target_path = f"{path}/"
 
     if target_path in fs and fs[target_path]["type"] == "dir":
         return fs[target_path]["contents"]
