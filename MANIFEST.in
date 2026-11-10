@@ -1,6 +1,6 @@
 recursive-include include *
 recursive-include tests *
 recursive-include examples *
-include COPYING.md
+include LICENSE.md
 include README.md
 include requirements.txt

@@ -152,5 +152,5 @@ Real-time synchronized storage across network.
 
 ## License
 
-See COPYING.md for license information.
+See LICENSE.md for license information.
 

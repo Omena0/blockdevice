@@ -214,13 +214,48 @@ jobs:
             echo "* RELEASE_DISPLAY_NAME: ${{ steps.get_version.outputs.release_display_name }}" >> "$GITHUB_STEP_SUMMARY"
           fi
 
+      - name: Write version into pyproject.toml
+        run: |
+          set -euo pipefail
+          VER="${{ steps.get_version.outputs.blockdevice_version }}"
+          sed -i 's/dynamic = \["version"\]/version = "'"$VER"'"/' pyproject.toml
+          echo "Wrote version $VER to pyproject.toml"
+
+      - name: Create setup.py for C++ extension
+        run: |
+          cat > setup.py <<'EOF'
+          from setuptools import setup, Extension
+          import pybind11
+          import os
+
+          blockdevice_module = Extension(
+              'blockdevice._blockdevice',
+              sources=[
+                  'src/blockdevice.cpp',
+                  'src/blockdevice_class.cpp'
+              ],
+              include_dirs=[
+                  pybind11.get_include(),
+                  os.path.abspath('include')
+              ],
+              language='c++',
+              extra_compile_args=['-std=c++14', '-Wno-attributes'],
+          )
+
+          setup(ext_modules=[blockdevice_module])
+          EOF
+          echo "Created setup.py for C++ extension build"
+
       - name: Build release distributions
         run: |
           set -euo pipefail
           # Clean any previous build artifacts so we don't upload stale packages
           rm -rf dist || true
-          python -m pip install --upgrade build
-          python -m build --no-isolation
+          python -m pip install --upgrade build cibuildwheel
+          # Build sdist (pure Python metadata, no compiled extension)
+          python -m build --sdist --no-isolation --outdir dist
+          # Build manylinux-compatible wheels via cibuildwheel
+          python -m cibuildwheel --output-dir dist --platform linux
 
       - name: Upload distributions
         uses: actions/upload-artifact@v4

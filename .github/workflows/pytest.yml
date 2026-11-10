@@ -39,6 +39,27 @@ jobs:
 
     - name: Build the extension
       run: |
+        cat > setup.py <<'EOF'
+        from setuptools import setup, Extension
+        import pybind11
+        import os
+
+        blockdevice_module = Extension(
+            'blockdevice._blockdevice',
+            sources=[
+                'src/blockdevice.cpp',
+                'src/blockdevice_class.cpp'
+            ],
+            include_dirs=[
+                pybind11.get_include(),
+                os.path.abspath('include')
+            ],
+            language='c++',
+            extra_compile_args=['-std=c++14', '-Wno-attributes'],
+        )
+
+        setup(ext_modules=[blockdevice_module])
+        EOF
         pip install -e .
 
     - name: Run tests with coverage
