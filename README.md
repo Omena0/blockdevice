@@ -18,6 +18,7 @@ A Python library for creating and managing block devices with FUSE filesystem su
 ## Installation
 
 ### From Source
+
 ```bash
 git clone https://github.com/Omena0/blockdevice.git
 cd blockdevice
@@ -67,7 +68,7 @@ sync_obj['shared_data'] = 'available on all connected instances'
 The library consists of several key components:
 
 - **BlockDevice**: C++ extension providing low-level block operations
-- **Storage Objects**: 
+- **Storage Objects**:
   - `Object`: Abstract base class for persistent objects
   - `DiskObject`: Pickle-based disk storage
   - `CompressedDiskObject`: Zstd-compressed disk storage
@@ -77,6 +78,7 @@ The library consists of several key components:
 ## Development
 
 ### Setup
+
 ```bash
 git clone https://github.com/Omena0/blockdevice.git
 cd blockdevice
@@ -87,6 +89,7 @@ pip install -e .
 ```
 
 ### Testing
+
 ```bash
 # Run all tests
 pytest
@@ -99,6 +102,7 @@ pytest tests/test_utils.py
 ```
 
 ### Building
+
 ```bash
 # Build the C++ extension
 python setup.py build_ext --inplace
@@ -117,29 +121,37 @@ See the `examples/` directory for sample applications:
 ## API Reference
 
 ### BlockDevice
+
 ```python
 BlockDevice(path: str, dolphin: bool = False)
 ```
+
 Core block device operations.
 
 ### Storage Classes
 
 #### DiskObject
+
 ```python
 DiskObject(path: str, default_value=None)
 ```
+
 Persistent dictionary stored as pickle file.
 
 #### CompressedDiskObject
+
 ```python
 CompressedDiskObject(path: str, default_value=None, compression_level=5)
 ```
+
 Compressed persistent storage using zstd.
 
 #### NetworkObject
+
 ```python
 NetworkObject(host: str, port: int = None, default_value=None)
 ```
+
 Real-time synchronized storage across network.
 
 ## Contributing
@@ -153,4 +165,3 @@ Real-time synchronized storage across network.
 ## License
 
 See LICENSE.md for license information.
-
