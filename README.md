@@ -141,12 +141,6 @@ NetworkObject(host: str, port: int = None, default_value=None)
 ```
 Real-time synchronized storage across network.
 
-### FUSE
-```python
-BlockDeviceFUSE(block_device)
-```
-FUSE filesystem operations handler.
-
 ## Contributing
 
 1. Fork the repository
@@ -159,6 +153,3 @@ FUSE filesystem operations handler.
 
 See COPYING.md for license information.
 
-## Authors
-
-- Omena0 (omena0mc@gmail.com)
