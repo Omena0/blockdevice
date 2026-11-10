@@ -3,6 +3,7 @@
 [![Build](https://github.com/Omena0/blockdevice/actions/workflows/publish.yml/badge.svg)](https://github.com/Omena0/blockdevice/actions/workflows/publish.yml)
 [![pytest](https://github.com/Omena0/blockdevice/actions/workflows/pytest.yml/badge.svg)](https://github.com/Omena0/blockdevice/actions/workflows/pytest.yml)
 [![Coverage](https://img.shields.io/badge/coverage-48%25-brightgreen)](https://github.com/Omena0/blockdevice/actions/workflows/pytest.yml)
+![AI Code](https://img.shields.io/badge/AI_code-99%25-red?logo=Github%20copilot)
 
 A Python library for creating and managing block devices with FUSE filesystem support. Provides persistent object storage with compression options and real-time synchronization capabilities.
 
